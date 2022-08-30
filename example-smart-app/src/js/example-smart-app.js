@@ -129,7 +129,7 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
-    $('#temperature').html(p.temp);
+    $('#temp').html(p.temp);
   };
 
 })(window);
