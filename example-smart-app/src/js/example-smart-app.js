@@ -22,14 +22,14 @@
                     }
                   });
 
-		var allergies = smart.patient.api.fetchAll({
+		var alg = smart.patient.api.fetchAll({
                     type: 'AllergyIntolerance',
                     query: {
                      "clinical-status": 'active'
                     }
                   });
 				  
-        $.when(pt, obv, allergies).fail(onError);
+        $.when(pt, obv, alg).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
@@ -51,15 +51,15 @@
           var temp = byCodes('8310-5');
 		  
 		  var allergyTable = "<table>";
-		  var allergyLen = allergies.length;
+		  var allergyLen = alg.length;
 		  for (var i=0;i<allergyLen;i++){
 			  var reactionStr = [];
-			  if(allergies[i].reaction !== undefined) {
-				  for(var j=0,jLen=allergies[i].reaction.length;j<jLen;j++) {
-					  reactionStr.push(allergies[i].reaction[j].manifestation[0].text);
+			  if(alg[i].reaction !== undefined) {
+				  for(var j=0,jLen=alg[i].reaction.length;j<jLen;j++) {
+					  reactionStr.push(alg[i].reaction[j].manifestation[0].text);
 				  }
 			  }
-			  allergyTable += "<tr><td>"+allergies[i].code.text+"</td><td>"+reactionStr.join(", ")+"</td></tr>";
+			  allergyTable += "<tr><td>"+alg[i].code.text+"</td><td>"+reactionStr.join(", ")+"</td></tr>";
 		  }
 		  if (allergyLen === 0) {
 			  allergyTable += "<tr><td>No Allergies Documented</td></tr>";
@@ -111,7 +111,7 @@
       ldl: {value: ''},
       hdl: {value: ''},
       temp: {value: ''},
-	  allergies: {value: ''},
+      allergies: {value: ''}
     };
   }
 
