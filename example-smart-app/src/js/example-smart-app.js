@@ -156,7 +156,7 @@
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
     $('#temp').html(p.temp);
-	$('#alelrgyIntolerance').html(p.allergy);
+	$('#alelrgyIntolerance').html(p.allergies);
 	
   };
 
