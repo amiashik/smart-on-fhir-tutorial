@@ -29,7 +29,7 @@
                     }
                   });
 				  
-        $.when(pt, obv, alg).fail(onError);
+        $.when(pt, obv, allergies).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
