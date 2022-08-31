@@ -22,7 +22,14 @@
                     }
                   });
 
-        $.when(pt, obv).fail(onError);
+		var alg = smart.patient.api.fetchAll({
+                    type: 'AllergyIntolerance',
+                    query: {
+                     "clinical-status": 'active'
+                    }
+                  });
+				  
+        $.when(pt, obv, alg).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
@@ -42,6 +49,13 @@
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
           var temp = byCodes('8310-5');
+		  
+		  var at = '<table>';
+		  var allergyLen = alg.length;
+		  for (var i=0;i<allergyLen;i++){
+			  
+		  }
+		  
 
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
@@ -50,6 +64,7 @@
           p.lname = lname;
           p.height = getQuantityValueAndUnit(height[0]);
           p.temp =  getQuantityValueAndUnit(temp[0]);;
+		  p.allergy = alg.code[0];
 
           if (typeof systolicbp != 'undefined')  {
             p.systolicbp = systolicbp;
@@ -86,6 +101,7 @@
       ldl: {value: ''},
       hdl: {value: ''},
       temp: {value: ''},
+	  allergy: {value: ''},
     };
   }
 
@@ -130,6 +146,8 @@
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
     $('#temp').html(p.temp);
+	$('#alelrgyIntolerance').html(p.allergy);
+	
   };
 
 })(window);
